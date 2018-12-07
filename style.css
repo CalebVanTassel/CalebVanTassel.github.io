@@ -3,17 +3,17 @@
 /* Fonts */
 @font-face {
     font-family: "dubiel";
-    src: url("/home/caskla/bin/html/dubiel/DUBIEL.TTF");
+    src: url("dubiel/DUBIEL.TTF");
 }
 
 @font-face {
     font-family: "campton";
-    src: url("/home/caskla/bin/html/campton/Campton-BoldDEMO.otf");
+    src: url("campton/Campton-BoldDEMO.otf");
 }
 
 @font-face {
     font-family: "acherus-grotesque";
-    src: url("/home/caskla/bin/html/acherus-grotesque/Acherus-Grotesque-Medium.otf");
+    src: url("acherus-grotesque/Acherus-Grotesque-Medium.otf");
 }
 /* page layout */
 * {
