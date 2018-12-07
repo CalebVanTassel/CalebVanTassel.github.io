@@ -1,0 +1,172 @@
+/* https://coolors.co/2d2d2a-353831-38423b-3f5e5a-20fc8f */
+
+/* Fonts */
+@font-face {
+    font-family: "dubiel";
+    src: url("/home/caskla/bin/html/dubiel/DUBIEL.TTF");
+}
+
+@font-face {
+    font-family: "campton";
+    src: url("/home/caskla/bin/html/campton/Campton-BoldDEMO.otf");
+}
+
+@font-face {
+    font-family: "acherus-grotesque";
+    src: url("/home/caskla/bin/html/acherus-grotesque/Acherus-Grotesque-Medium.otf");
+}
+/* page layout */
+* {
+    box-sizing: border-box;
+}
+body {
+    background: #eee;
+    font-family: "Arial";
+    margin: 0;
+    overflow-x: hidden;
+}
+
+h2 {
+    font-family: "dubiel";
+    font-weight: 400 !important;
+    color: #eee;
+}
+
+img {
+    max-width: 100%;
+    max-height: 50%;
+}
+a:link {
+   color: #3f5e5a;
+   text-decoration: none;
+}
+a:visited {
+   color: #3f5e5a;
+   text-decoration: none;
+}
+a:hover {
+   color: #3f5e5a;
+   text-decoration: none;
+}
+a:active {
+   color: #3f5e5a;
+   text-decoration: none;
+}
+.campton { 
+    color: #3f5e5a;
+    margin: 0 20px;
+    font-family: "campton" !important;
+}
+
+#top {
+    /*background: #2d2d2a;*/
+    background-image: url("img/space.jpg");
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+}
+
+#heading {
+    padding: 5px 50px 50px 50px;
+    text-align: center;
+    margin: 25px 50px;
+    font-size: 35pt;
+}
+
+#navigation {
+    top: 0;
+    background-color: #eee;
+    float: right;
+    margin: 20px;
+}
+
+#theRest {
+    background-color: #eee;
+}
+
+.s6 {
+    width: 50%;
+    float: left;
+}
+.row {
+    width: 100%;
+    float: left;
+    padding-bottom: 15px;
+}
+
+.block {
+    background-color: white;
+    margin: 15px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    border-radius: 2px;
+    transition: .2s;
+    opacity: 0;
+}
+
+.block:hover {
+    background-color: #e2e2e2;
+}
+
+.blockText {
+    padding: 20px;
+    font-family: "acherus-grotesque";
+}
+
+.blockImg {
+    height: 150px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    border-radius: 2px 2px 0 0;
+}
+
+
+/* Menu Button */
+/* Move to hamburger.css */
+#navigation {
+    top: 0;
+    background-color: #eee;
+    float: right;
+    margin: 20px;
+    border-radius: 2px;
+}
+
+.hamburger {
+    padding: 15px 15px 13px 15px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+}
+.hamburger-box {
+    width: 30px;
+    height: 23px;
+}
+.hamburger-inner,.hamburger-inner::before, .hamburger-inner::after {
+    background-color: #3f5e5a;
+    width:30px;
+    height:3px;
+}
+
+/* Sidebar */
+#sideBar {
+    position: absolute;
+    top: 5.5rem;
+    right: -150px;
+    background-color: #eee;
+    padding: 25px;
+    font-family: campton;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    border-radius: 2px;
+    transition: .2s;
+}
+
+#sideBar > ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+#sideBar > ul > li {
+    margin: 5px;
+}
+.sideBarActive {
+    right: 20px !important;
+}
+
