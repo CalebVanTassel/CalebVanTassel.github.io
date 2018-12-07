@@ -53,6 +53,7 @@
   .hamburger-inner::before {
     top: -10px; }
   .hamburger-inner::after {
+    height: 2.5px !important;
     bottom: -10px; }
 
 /*
