@@ -7,6 +7,8 @@
     }
     html, body {
         overflow-x: hidden !important;
+        position: relative;
+        height: 100%;
     }
     .block {
         opacity: 1 !important;
