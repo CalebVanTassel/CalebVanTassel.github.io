@@ -5,9 +5,6 @@
     .s6 {
         width: 100% !important;
     }
-    html, body {
-        overflow-x: hidden !important;
-    }
     .block {
         opacity: 1 !important;
     }
@@ -37,7 +34,6 @@ body {
     background: #eee;
     font-family: "Arial";
     margin: 0;
-    overflow-x: hidden;
 }
 
 h2 {
@@ -68,6 +64,7 @@ a:active {
 }
 #container {
     overflow-x: hidden;
+    position: absolute;
 }
 .campton { 
     color: #3f5e5a;
