@@ -7,8 +7,6 @@
     }
     html, body {
         overflow-x: hidden !important;
-        height: 100%;
-        position: fixed;
     }
     .block {
         opacity: 1 !important;
@@ -145,6 +143,7 @@ a:active {
     float: right;
     margin: 20px;
     border-radius: 2px;
+    overflow-x: hidden;
 }
 
 .hamburger {
