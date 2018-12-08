@@ -5,7 +5,7 @@
     .s6 {
         width: 100% !important;
     }
-    html, body, .container {
+    html, body {
         overflow-x: hidden !important;
     }
     .block {
@@ -65,6 +65,9 @@ a:hover {
 a:active {
    color: #3f5e5a;
    text-decoration: none;
+}
+.container {
+    overflow-x: hidden;
 }
 .campton { 
     color: #3f5e5a;
