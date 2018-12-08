@@ -6,7 +6,10 @@
         width: 100% !important;
     }
     body {
-        overflow-x: hidden
+        overflow-x: hidden !important;
+    }
+    .block {
+        opacity: 1 !important;
     }
 }
 
