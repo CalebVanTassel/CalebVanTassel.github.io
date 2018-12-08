@@ -173,7 +173,7 @@ a:active {
 }
 
 /* Mobile */
-@media (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
     .s6 {
         width: 100%;
     }
