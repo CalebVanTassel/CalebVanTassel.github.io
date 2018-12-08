@@ -64,7 +64,7 @@ a:active {
 }
 #container {
     overflow-x: hidden;
-    position: absolute;
+    position: relative;
 }
 .campton { 
     color: #3f5e5a;
