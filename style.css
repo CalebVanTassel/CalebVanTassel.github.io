@@ -172,3 +172,9 @@ a:active {
     right: 20px !important;
 }
 
+/* Mobile */
+@media (max-width: 1024px) {
+    .s6 {
+        width: 100%;
+    }
+}
