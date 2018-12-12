@@ -94,13 +94,6 @@ a:active {
     padding: 15px 0 27px 0;
 }
 
-#navigation {
-    top: 0;
-    background-color: #eee;
-    float: right;
-    margin: 20px;
-}
-
 #theRest {
     background-color: #eee;
 }
@@ -124,7 +117,7 @@ a:active {
     opacity: 0;
 }
 
-.block:hover {
+.s6 > a > .block:hover {
     background-color: #e2e2e2;
 }
 
