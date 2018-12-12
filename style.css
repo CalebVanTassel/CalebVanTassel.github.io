@@ -88,6 +88,12 @@ a:active {
     font-size: 35pt;
 }
 
+#postHeading {
+    margin: 0px 40px;
+    font-size: 20pt;
+    padding: 15px 0 27px 0;
+}
+
 #navigation {
     top: 0;
     background-color: #eee;
