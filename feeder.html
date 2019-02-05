@@ -27,7 +27,7 @@
             </div>
             <div id="theRest">
                 <div class="row">
-                    <div class="block blockText">
+                    <div class="block blockTextOnly">
                         <h3 style="float:left;">Automatic Water Feeder</h3> 
                         <span style="float:right;">4/3/2018</span>
                         <br>
@@ -39,14 +39,14 @@
                         <p>One of the biggest things I see making a difference for people in the future is Automation. The premise of being able to make machines do our uninspired work can mean the world to our future generations. I see this as something I might want to pursue in the future, and to get an idea of automating a process, I decided to make an automatic water feeder. I know, not many applications, but I figured I could get some use out of an extra Arduino I had laying around.
                         </p>
                         <p>
-                            I sought out to answer the following questions:</p>
+                            I sought to answer the following questions:</p>
                         <ul>
                             <li>How much would it cost me to implement an automated watering process?</li>
                             <li>How long would it take for my investment to pay itself off (in time saved)?</li>
                         Then, in reflection,
                             <li>How would my situation be different from a business standpoint?</li>
                         </ul>
-                        <p>I knew I could use the Arduino for the 'brain' of the thing, but I had little with accomplishing this sort of task. So, I looked to the trusty ol' Google for some guidance. Sure enough, I was able to find a guide on how to control something called a "solenoid valve" with my Arduino board. This seemed to be exactly what I needed.
+                        <p>I knew I could use the Arduino for the 'brain' of the thing, but I had little experience with accomplishing this sort of task. So, I looked to the trusty ol' Google for some guidance. Sure enough, I was able to find a guide on how to control something called a "solenoid valve" with my Arduino board. This seemed to be exactly what I needed.
                         </p>
                         <p>
                             With the guidance to get through the hard part on lock down, I was ready to plan out what materials I would need in order to put the master plan into place. So I thought to myself, "What would an automatic water feeder look like?" From there, I determined the parts that my little project would require, and their prices:
@@ -59,7 +59,7 @@
                             <li>An arduino board with the electronics required to control the solenoid valve - $33</li>
                         </ul>
                         <p>
-                        The total price coming to $68, but I only paid $46 because I already had my arduino. 
+                        The total price came to $68, but I only paid $35 because I already had my arduino. 
                         </p>
                         <p>
                             In the coming days, I ordered my solenoid valve online, visited an electronics store, and took a trip over to the Home Depot. I decided to simply order the exact same solenoid valve as was in the guide, but this came back to bite me in the ass. I'll have more on that later. Everything went smoothly at the electronics store, though I'm sure I looked very clueless to the employees who helped me. And I spent a good 25 minutes looking at random hose adapters at Home Depot before asking for some assistance on how I could connect my container to my valve. Alex was very helpful with giving me some ideas, so thanks, Alex.
@@ -68,7 +68,7 @@
                             With all the pieces to the puzzle, I was ready to begin the assembly. I started with wiring up the arduino to ensure that the valve functioned before attaching the container and tubing. After about an hour of following a wiring diagram, plugging wires into the arduino holes, and uploading code to the arduino, I was able to get the valve to start opening and closing, though it was really quiet. I went on anyway and attached the tube to the valve to start putting some water in, but something wasn't right. The water just fell through the valve and never stopped. I tested it 5 more times just to convince myself that I had somehow made an error in the process. I had to go back to the drawing board, and by that, I mean to the guide. Turns out I needed to connect it to an outlet because my computer didn't give it enough power. So I did, and thankfully it was much louder when opening and closing the valve. I was thinking pretty highly of myself at this point, as I had successfully troubleshooted and was well on my way to embracing the automation life. 
                         </p>
                         <p>
-                            It was time to rinse and repeat, to prove to myself that I could, in fact, do it. I reattached the tube and poured water down it. The valve was audibly opening and closing, but to my surprise, the water still didn't stop. Frustrated was an understatement. I tried it again. Still no stoppage. Again. Same result. Einstein's quote ran through my head, "Insanity is doing the same thing over and over and expecting different results." I wasn't about to lose my mind to this crappy little valve. I went back to the guide, this time realizing there were comments. I read through nearly all of them, until at the end, I found some poor chap with the same issue. Mr.Geek-Man who wrote the post failed to mention that in order for this valve to operate, it needed 3 PSI of pressure on the valve. This is the equivalent of storing your water 7 FEET above the valve. Who freaking does that? I was pissed, but I did have a feeling, deep down, that this would no go quite as I had imagined. 
+                            It was time to rinse and repeat, to prove to myself that I could, in fact, do it. I reattached the tube and poured water down it. The valve was audibly opening and closing, but to my surprise, the water still didn't stop. Frustrated was an understatement. I tried it again. Still no stoppage. Again. Same result. Einstein's quote ran through my head, "Insanity is doing the same thing over and over and expecting different results." I wasn't about to lose my mind to this crappy little valve. I went back to the guide, this time realizing there were comments. I read through nearly all of them, until at the end, I found some poor chap with the same issue. Mr.Geek-Man who wrote the post failed to mention that in order for this valve to operate, it needed 3 PSI of pressure on the valve. This is the equivalent of storing your water 7 FEET above the valve. Who freaking does that? I was pissed, but I did have a feeling, deep down, that this would not go quite as I had imagined. 
                         </p>
                         <p>
                         Nonetheless, I was still ready to keep going. I discovered that what I would need was not your (somehow) common, everyday, stores your water 7 feet in the air, solenoid valve. What I needed was a "direct acting" solenoid valve, a valve that required 0 PSI to operate. I was left with no choice but to visit the eBay in order to find a reasonable deal on this new valve, as I had already spent more on this project that I had originally thought. The best deal I could find was for $25, bringing the total up to $78. 
@@ -93,7 +93,7 @@
                             </p>
                             <li>How would my situation be different from a business standpoint?</li>
                             <p>
-                            In a business environment, such as a plant nursery, one would probably be able to get more of a discount on the parts they purchase, as it would likely be in bulk. They would also be able to save even more money as they would be saving more time watering every plant than just one like in my situation. In a business environment, automating a process like this seems even more reasonable than doing it for just one small use case. 
+                            In a business environment, such as a plant nursery, one would probably be able to get more of a discount on the parts they purchase, as it would likely be in bulk. They would also be able to save even more money as they would be saving more time watering every plant rather than just one like in my situation. In a business environment, automating a process like this seems even more reasonable than doing it for just one small use case. 
                             </p>
                         </ul>
                         <p>

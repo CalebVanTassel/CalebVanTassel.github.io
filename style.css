@@ -118,12 +118,22 @@ a:active {
 }
 
 .s6 > a > .block:hover {
-    background-color: #e2e2e2;
+    /*background-color: #e2e2e2;*/
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 .blockText {
-    padding: 20px;
+    padding: 0 20px;
     font-family: "acherus-grotesque";
+}
+
+/*.blockText > p {
+	height: 54px;
+}*/
+
+.blockTextOnly {
+	padding: 20px;
+	font-family: "acherus-grotesque";
 }
 
 .blockImg {
@@ -134,6 +144,11 @@ a:active {
     border-radius: 2px 2px 0 0;
 }
 
+.blockFoot {
+	padding: 0 20px 5px 0;
+	text-align: right;
+	font-family: "acherus-grotesque";
+}
 
 /* Menu Button */
 /* Move to hamburger.css */

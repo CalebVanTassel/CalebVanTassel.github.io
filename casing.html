@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="hamburgers.css" rel="stylesheet">
+        <link href="style.css" rel="stylesheet">
+        <script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <div id="container">
+            <div id="top">
+                <div id="navigation">
+                    <button id="menu" class="hamburger hamburger--minus" type="button">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
+                </div>
+                <br/>
+                <div id="postHeading">
+                    <h2 style="margin: 0;">Projects</h2>
+                </div>
+            </div>
+            <div id="theRest">
+                <div class="row">
+                    <div class="block blockTextOnly">
+                        <h3 style="float:left;">Poker Casing</h3>
+                        <span style="float:right;">2/5/2019</span>
+                        <br>
+                        <br>
+                        <p></p>
+
+                        <p>If you know the Van Tassels, you know that we're big game people. This past December, my family and I picked up Texas Hold'em as our game of choice for family nights. I know, it's a bit untraditional, but still, it's mostly about the quality time together. That and the chance at picking up a few extra bucks. At the start of the game, everyone throws down $5, and most of the time, one or two of us end up with the pot. This event has single-handedly provided me with multiple free McChickens, so I'm not complaining.</p>
+
+                        <p>Naturally, as we realized this was a game that we would enjoy playing for awhile, my dad decided it was a good idea to buy a set of real chips to play with, rather than the measly Sequence chips we had been using before. Ebay was clearly the market of choice, because if we were lucky, we could probably score a set for cheap from someone who needed a quick buck. Sure enough with a few clicks of a mouse, my dad had a fresh set on its way for $40. </p>
+
+                        <p>Unfortunately, upon receiving the package, we ran into a bit of a hiccup. The case wasn't packaged properly, and so as it was being tossed around by the mailing service, the inside casing got obliterated. It was completely unsalvageable (see image below). As per Ebay's suggested course of action, we immediately contacted the seller about our issue. He got back to us, explaining that he was very sorry, and admitted that he was struggling with money right then. Considering that there had been no damage to the actual chips, processing a return and forcing him to pay the return shipping was out of the question. The poor guy really needed that $40. We decided that it would be best if we just repaired the case ourselves. </p>
+
+                        <div class="imgContainer">
+                            <img src="img/PokerCasing/image0.jpg"/>
+                        </div>
+
+                        <p>My dad, being the handy-man that he is, began to contemplate how he would go about remaking the casing. Cutting it out of wood would be a pain, but possible. I suggested an alternative. In November, I taught myself a little CAD so that I could print a case for my keyboard. I figured that this wasn't too different. All I would need to do is measure the dimensions of the chips, cards, and case, and then just cut the shapes out of a rectangle. My dad liked my proposal and entrusted me with the task. Here's how I went about it:</p>
+
+                        <p>To start, I drafted the measurements for the case. Below you can see a picture of all the measurements I made, but I'm going to go over them in the order that I made them in AutoCAD because they're kind of a lot by themselves. </p>
+
+                        <div class="imgContainer">
+                            <img src="img/PokerCasing/image1.png"/>
+                        </div>
+
+                        <p>I started by making a base for the casing that was 30.6cm x 19cm x .5cm. Cake. The next thing I needed was to cut a cylinder out of a rectangle so that I had a shape to hold the chips. I made a cylinder that had a diameter .2cm bigger than the actual chips, so that it would be big enough for them to be able to sit inside it. It ended up having a 4.1cm diameter. Next I made the rectangle that would end up having the cylinder cut out of it. I wanted the edges between the rows of chips to have .5cm on each side, so I made the rectangle 4.6cm x 19cm x 2cm (you can see in the drafts that I had a little space of 1.6cm at the bottom of the curve, but I decided that was unnecessary). Next, I just superimposed the cylinder and rectangle and used the handy 'Subtract' command to cut the cylinder out (you can see it in the top bar). Here's what I ended up with:
+
+                        <div class="imgContainer">
+                        <img src="img/PokerCasing/image2.png"/>
+                        </div>
+
+                        <p>Now I needed four of these. The power of 3D modeling/printing is really shown here: all I had to do was copy and paste that shape three times, and I had the left and right sides of the case. The only thing left to do was make the middle piece, which I wanted to hold the two decks of cards and the dice. </p>
+
+                        <p>I made four shapes for this, one for the base (12.2cm x 19cm x 2cm), two for the cards (9.5cm x 7cm x 2cm) and one for the dice (10.1cm x 2cm x 2cm). The cards and dice rectangles were to be cut out of the base rectangle. Here's a couple images of what that ended up looking like:</p>
+
+                        <div class="imgContainer">
+                        <img src="img/PokerCasing/image3.png"/>
+                        </div>
+
+                        <div class="imgContainer">
+                        <img src="img/PokerCasing/image4.png"/>
+                        </div>
+
+                        <p>At this point I got excited and started unioning the pieces together, but I forgot I needed to make a little slot to put your finger so that you could pull the dice or cards out. I decided to just make a tiny rectangle 1cm wide and high (length didn't really matter), and cut that out from the middle.</p>
+
+                        <div class="imgContainer">
+                        <img src="img/PokerCasing/image5.png"/>
+                        </div>
+
+                        <p>After this was done, I figured I was ready to print it. I exported the .stl file and sent her over to my local print shop. They got back to me saying that it was slightly too big. Their machines could only print 300mm x 300mm, and of course, my print was 306mm wide. They suggested that they could just scale it down for me, but then I was worried that the chips wouldn't fit, so I had to go back and edit the model to cut out a little bit of horizontal space in the middle piece. This ended up being quite the complicated task, as I had already unioned the pieces together. I ended up fumbling around with the midpoint command until I was able to cut out a quarter of the space from each side, and it was finally ready. </p>
+
+                        <div class="imgContainer">
+                        <img src="img/PokerCasing/final.png"/>
+                        </div>
+
+                        <p>After waiting a couple of days, the print was ready and I was able to pop it into the case. It actually fit pretty snug even with the reduced width. Here's a picture of the final result:</p>
+
+                        <div class="imgContainer">
+                        <img src="img/PokerCasing/result.jpg"/>
+                        </div>
+
+                        <p>The hardest part about all of this was positioning the shapes in AutoCAD. For some reason, I could not get used to the 'Move' command adjustments, and I couldn't figure out for the life of me how to put a shape at a particular coordinate. I (embarrassingly) ended up scrolling in super close to make sure the shapes lined up properly. I'm certain that there's a better way to do this, I was just having a difficult time finding it at the time. Thankfully, the casing turned out just fine, and now we'll be ready to play like the big dogs next family night.</p>
+
+                        <p>Thanks for reading!</p>
+
+
+                    </div>
+
+    	       </div>
+			</div>
+            <div id="sideBar">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#projects">Projects</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+             </div>
+        </div>
+    </body>
+</html>
+<style>
+    p {
+        text-indent: 40px;
+    }
+    img {
+        max-height: 500px;
+        display:block;
+        margin: auto;
+    }
+    .imgContainer {
+    }
