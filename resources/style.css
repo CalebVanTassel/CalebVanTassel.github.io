@@ -13,17 +13,17 @@
 /* Fonts */
 @font-face {
     font-family: "dubiel";
-    src: url("dubiel/DUBIEL.TTF");
+    src: url("../fonts/dubiel/DUBIEL.TTF");
 }
 
 @font-face {
     font-family: "campton";
-    src: url("campton/Campton-BoldDEMO.otf");
+    src: url("../fonts/campton/Campton-BoldDEMO.otf");
 }
 
 @font-face {
     font-family: "acherus-grotesque";
-    src: url("acherus-grotesque/Acherus-Grotesque-Medium.otf");
+    src: url("../fonts/acherus-grotesque/Acherus-Grotesque-Medium.otf");
 }
 /* page layout */
 * {
@@ -74,7 +74,7 @@ a:active {
 
 #top {
     /*background: #2d2d2a;*/
-    background-image: url("img/space.jpg");
+    background-image: url("../img/space.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -113,8 +113,14 @@ a:active {
     margin: 15px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     border-radius: 2px;
-    transition: .2s;
-    opacity: 0;
+    transition: .4s;
+    opacity: .05;
+	margin-top: 5%;
+}
+
+.blockVisible {
+	opacity: 1;
+	margin-top: 15px;
 }
 
 .s6 > a > .block:hover {
@@ -125,6 +131,8 @@ a:active {
 .blockText {
     padding: 0 20px;
     font-family: "acherus-grotesque";
+	display: inline-block;
+	width: 100%;
 }
 
 /*.blockText > p {
@@ -154,12 +162,14 @@ a:active {
 /* Move to hamburger.css */
 #navigation {
     top: 0;
+	right: 0;
     background-color: #eee;
-    float: right;
     margin: 20px;
     border-radius: 2px;
     overflow-x: hidden;
     position: relative;
+	float: right;
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);	
 }
 
 .hamburger {

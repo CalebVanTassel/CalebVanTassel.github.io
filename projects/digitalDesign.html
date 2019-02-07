@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="hamburgers.css" rel="stylesheet">
-        <link href="style.css" rel="stylesheet">
+        <meta name="../resources/viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../resources/hamburgers.css" rel="stylesheet">
+        <link href="../resources/style.css" rel="stylesheet">
         <script
 			  src="https://code.jquery.com/jquery-3.3.1.min.js"
 			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 			  crossorigin="anonymous"></script>
-        <script src="script.js"></script>
+        <script src="../resources/script.js"></script>
     </head>
     <body>
         <div id="container">
             <div id="top">
-                <div id="navigation">
+                <div id="navigation" style="position: fixed;">
                     <button id="menu" class="hamburger hamburger--minus" type="button">
                         <span class="hamburger-box">
                             <span class="hamburger-inner"></span>
@@ -29,32 +29,32 @@
                 <h2 id="works" class="campton">Works</h2>
                 <div class="row"> 
                     <div class="s6">
-                        <a href="img/VA1.png">
+                        <a href="../img/VA1.png">
                         <div class="block">
-                            <div class="blockImg" style="background-image: url('img/VA1.png');"></div>
+                            <div class="blockImg" style="background-image: url('../img/VA1.png');"></div>
                             <div class="blockText">
-                                Collage
+                                <h3>Collage</h3>
                             </div>
                         </div>
                         </a>
                     </div>
                     <div class="s6">
-                        <a href="img/VA2.jpg">
+                        <a href="../img/VA2.jpg">
                         <div class="block">
-                            <div class="blockImg" style="background-image: url('img/VA2.jpg');"></div>
+                            <div class="blockImg" style="background-image: url('../img/VA2.jpg');"></div>
                             <div class="blockText">
-                                Logo
+                                <h3>Logo</h3>
                             </div>
                         </div>
                         </a>
                         <br>
                     </div>
                     <div class="s6">
-                        <a href="img/VA3.jpg">
+                        <a href="../img/VA3.jpg">
                         <div class="block">
-                            <div class="blockImg" style="background-image: url('img/VA3.jpg');"></div>
+                            <div class="blockImg" style="background-image: url('../img/VA3.jpg');"></div>
                             <div class="blockText">
-                                Book Cover
+                                <h3>Book Cover</h3>
                             </div>
                         </div>
                         </a>
@@ -62,12 +62,12 @@
                     </div>
                 </div>
             </div>
-            <div id="sideBar">
+            <div id="sideBar" style="position: fixed;">
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html#about">About</a></li>
-                    <li><a href="index.html#projects">Projects</a></li>
-                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="../index.html#projects">Projects</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
                 </ul>
             </div>
         </div> 

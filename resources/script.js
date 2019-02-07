@@ -16,9 +16,11 @@ $(document).ready(function() {
 
     // Show elements in viewport
     $(".block").each(function() {
-        if ($(this).isInViewport())
-            $(this).css("opacity", "1");
-    });
+        if ($(this).isInViewport()) {
+			$(this).addClass("blockVisible")
+			//.css("opacity", "1");
+    	}
+	});
      
     // Fade in elements
     // Source: https://codepen.io/annalarson/pen/GesqK 
@@ -33,7 +35,9 @@ $(document).ready(function() {
             
             /* If the object is completely visible in the window, fade it it */
             if( bottom_of_window > bottom_of_object ) {
-                $(this).animate({'opacity':'1'}, 5); 
+                //$(this).animate({'opacity':'1',
+				//				 'margin-top': '15px'}, 5); 
+				$(this).addClass("blockVisible");
             } 
         });  
     }); 
