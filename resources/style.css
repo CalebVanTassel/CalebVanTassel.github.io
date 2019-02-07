@@ -88,12 +88,16 @@ a:active {
     font-size: 35pt;
 }
 
-#postHeading {
+#pageHeading {
     margin: 0px 40px;
     font-size: 20pt;
     padding: 15px 0 27px 0;
 }
 
+#postHeading {
+	width: 100%;
+	display: inline-block;
+}
 #theRest {
     background-color: #eee;
 }
