@@ -66,7 +66,7 @@ a:active {
     overflow-x: hidden;
     position: relative;
 }
-.campton { 
+.campton {
     color: #3f5e5a;
     margin: 0 20px;
     font-family: "campton" !important;
@@ -168,6 +168,13 @@ a:active {
 	height: auto;
 }
 
+.codeContainer {
+  height: 250px;
+  overflow-y:scroll;
+  width: 75%;
+  margin:auto;
+}
+
 /* Menu Button */
 /* Move to hamburger.css */
 #navigation {
@@ -179,7 +186,7 @@ a:active {
     overflow-x: hidden;
     position: relative;
 	float: right;
-	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);	
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 .hamburger {
@@ -224,4 +231,3 @@ a:active {
     right: 20px !important;
     visibility: visible !important;
 }
-

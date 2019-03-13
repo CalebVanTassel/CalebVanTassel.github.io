@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="../resources/hamburgers.css" rel="stylesheet">
+      <link href="../resources/style.css" rel="stylesheet">
+      <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+      <script src="../resources/script.js"></script>
+      <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  </head>
+    <body>
+        <div id="container">
+            <div id="top">
+                <div id="navigation" style="position:fixed;">
+                    <button id="menu" class="hamburger hamburger--minus" type="button">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
+                </div>
+                <br/>
+                <div id="pageHeading">
+                    <h2 style="margin: 0;">Projects</h2>
+                </div>
+            </div>
+            <div id="theRest">
+                <div class="row">
+                    <div class="block blockTextOnly">
+						<div id="postHeading">
+                        	<h3 style="float:left;">Weather Display</h3>
+                        	<span style="float:right;">3/10/2019</span>
+                        </div>
+
+                        <img src="../img/WeatherDisplay/finish.jpg"/>
+
+                        <p>I am not a morning person. I'm not sure how anyone is, really. Being awoken by the grating, repetitive sounds of an alarm is bad enough, but having to leave the warmth and comfort of your bed? Man, that's just harsh. Why would you like that? It's beyond me, really. But I think because of the stance I hold on this, I tend to live dangerously in regards to the amount of time I leave myself to get ready in the mornings. I like to pinch out every last minute that I can in bed, so that I can embrace that sweet, sweet warmth for just a little longer. This, of course, comes with its drawbacks. Sometimes I'll have to take my breakfast to go, or skip the ol' catching-up-on-your-phone part of my mornings, but overall, I think it's worth it.</p>
+
+                        <p>At the same time, I do have to make every minute of my mornings count this way. For example, I press and re-prepare my cold brews while my waffles are cooking, and I pick out my clothes while the showers heating up. Over time, these little optimizations save me considerable amounts of extra 'cozy time', so it's really important stuff. That's why I eventually got tired of also having to check my phone to see the weather every morning. I had a 16x2 LCD display laying around from one of my classes last year, and I decided I could put one of my Arduinos to work on making my mornings just a little bit easier. </p>
+
+                        <p>So off to work I went. First thing I realized was that I already had an Arduino hooked up in my room, and I  didn't actually need to use a-whole-nother Arduino for this project. The one I was using for <a href="feeder.html">my water feeder</a> used very little processing to turn the valve on every three days and it was already mounted on my wall, so it was going to work perfectly for this project as well. Though, this presented a new challenge, as I would now need to either combine two different wiring diagrams on one breadboard. I figured it was probably possible, but more on this later.</p>
+
+                        <p>Now that I had my materials in order, I only needed to figure out how I could get the weather on the Arduino and load it onto the display. I could've been extra and measured the temperature myself by connecting a thermometer to the board, but I didn't want to mess with having wires go out my window, so I settled for connecting it to the internet and getting the weather from there. For this development, I would need a way to connect my Arduino to my WiFi network, which is something that they don't do natively. Turns out they make something called a WiFi shield that, after soldering on pins, just plugs right into the top of the Arduino and allows it to be connected to the internet. So I went ahead and ordered myself one with a set of female pins. I forgot to take a picture of it, but you can basically see how it just plugs right in to the top of the Arduino in the image below.</p>
+
+                        <img src="../img/WeatherDisplay/img1.jpg"/>
+
+                        <p>Thankfully, this time, I actually ordered the right components for my project. After everything came in, I went to town soldering on the pins on my new WiFi shield, and plugged that mug right in. It took me a while to figure out the proper way to connect it to the internet, as there are a few different libraries that you can use to do it. I browsed through multiple different examples, but ended up using the <a href=”https://learn.sparkfun.com/tutorials/esp8266-wifi-shield-hookup-guide/all#using-the-esp8266-at-library”>example projects from Sparkfun</a> the most, because they were working the best. I suspect that's probably because that's where I bought the shield from.  </p>
+
+                        <p>Connecting the Arduino to my WiFi network was easy enough, but having to make a GET request to a website was a pain. First of all, it's not very well documented that you can only make requests to websites without SSL. That probably took me an hour to figure out because I kept getting 302 HTTP response codes which just means the website is trying to redirect you to the https version. It turns out that Arduinos don't (or barely with workarounds) have the processing capabilities to resolve https requests. For some reason, that essential information is very difficult to find, but once I figured that out I was able to get the weather data from <a href=”https://openweathermap.org/”>Open Weather Map</a> fairly quickly. Open Weather Map is a API where you can make requests to get weather data for your location in the JSON format, which was very helpful. </p>
+
+                        <p>From my background in Javascript, I figured I'd just import a library to parse the JSON response and print the data that way, but I ran into another issue when I tried it. The response from Open Weather Map is 500-something characters, and my Arduino ran out of memory trying to parse all of that. So I had to find another way. My first thought was to cut off the string after the data I needed was received, but this proved to be a very difficult thing to do, and I was still running out of memory. Upon reading the documentation for Arduino's Serial class, I found three functions that solved my problem. The first was readStringUntil. This allowed me to search through the string until I found the key of the value I was trying to get. In this case, I needed to find the 'main' for the weather condition, 'temp' for the current temperature, 'min' for the minimum temperature of the day, and 'max' for the maximum temperature of the day. Once the Serial parser was able to find one of these keys, I used either the parseFloat, parseInt, or the readStringUntil functions to get the value after the key. The parseFloat and parseInt functions just find the next int or float in the string and return it which worked perfectly for the 'temp', 'min' and 'max', and then I used the readStringUntil to read the 'main' value until the next comma, and return that value. I did have to trim the 'main' value of quotes and colons, but overall it worked very well and I didn't run out of memory! You can see the JSON response that I had to parse below.</p>
+
+                        <div class="codeContainer"><code><pre class="prettyprint">
+{
+  "coord":{
+     "lon":-94.63,
+     "lat":39.11
+  },
+  "weather":[
+     {
+        "id":500,
+        "main":"Rain",
+        "description":"light rain",
+        "icon":"10d"
+     },
+     {
+        "id":301,
+        "main":"Drizzle",
+        "description":"drizzle",
+        "icon":"09d"
+     }
+  ],
+  "base":"stations",
+  "main":{
+     "temp":287.46,
+     "pressure":997,
+     "humidity":87,
+     "temp_min":286.48,
+     "temp_max":288.15
+  },
+  "visibility":11265,
+  "wind":{
+     "speed":6.7,
+     "deg":160,
+     "gust":10.3
+  },
+  "rain":{
+     "1h":0.42
+  },
+  "clouds":{
+     "all":90
+  },
+  "dt":1552502341,
+  "sys":{
+     "type":1,
+     "id":4246,
+     "message":0.0072,
+     "country":"US",
+     "sunrise":1552480322,
+     "sunset":1552523046
+  },
+  "id":4273837,
+  "name":"Kansas City",
+  "cod":200
+}
+                        </pre></code></div>
+
+                        <p>From here, I  needed to connect the LCD next to the solenoid valve on the breadboard, and then just load the data onto the LCD. Before, I always just followed wiring diagrams to make use of my Arduino components, and I never really understood how they worked. Obviously, this wouldn't work for this project, so I had to do some reading/watching about how breadboards worked, and how current flowed through them. I found <a href=”https://www.youtube.com/watch?v=Iy7DY2UbHvM”>this video</a> from eTech Tom on YouTube to be very helpful with this. I learned that as long as I kept the pins in the same row as each other, I could just move them up to make room for the LCD. This made it very easy to combine the two different wiring diagrams (solenoid from <a href=”https://www.bc-robotics.com/tutorials/controlling-a-solenoid-valve-with-arduino/”>BC Robotics</a>, and LCD from <a href=”https://www.arduino.cc/en/Tutorial/HelloWorld”>Arduino</a>), which you can see below. </p>
+
+                        <div style="display:flex;margin: 50px 0;"><img src="https://www.bc-robotics.com/wp-content/uploads/2015/07/sketch1.jpg" style="float:left;"/>
+                        <img src="https://www.arduino.cc/en/uploads/Tutorial/LCD_Base_bb_Fritz.png" style="float:right; width:50%;"/></div>
+
+                        <p>The only overlap I had with these schematics was with digital pin 4. I did some reading and found out that most of the digital pins can be used for the same thing, as long as they didn't need special requirements (like PWM output). I assumed that this was meant all pins 2-13, so I hooked up the LCD on pins 7, 8, 9, and 10 instead of the 2, 3, 4, and 5 in the diagram. This was apparently NOT the way to go about it. It turns out that pin 8 is one of the analog pins, and the WiFi shield needs it for something, so when the LCD was initialized, it would disconnect it from the WiFi. This had me banging my head against the wall, because I was able to get the weather data any time I restarted it, but it would never change after that.</p>
+
+                        <p>But upon figuring that out, all I had to do was convert the weather values to Fahrenheit and print them on the LCD, and there we had it. The last thing I added was a timer to have it refresh every 30 minutes, and just like that I had saved myself a couple of extra minutes in my bed every morning!</p>
+
+                        <p>You can see my Arduino code below. Thanks for reading!</p>
+                        <div class="codeContainer"><code><pre class="prettyprint">
+#include &lt;SoftwareSerial.h&gt;
+#include &lt;SparkFunESP8266WiFi.h&gt;
+#include &lt;LiquidCrystal.h&gt;
+
+//////////////////////////////
+// WiFi Network Definitions //
+//////////////////////////////
+
+// Sensitive info has been omitted with {CAPS}
+
+// Network info
+const char mySSID[] = "{NETWORK NAME}";
+const char myPSK[] = "{NETWORK PASSWORD}";
+ESP8266Client client;  // Create a client object
+
+// Weather website
+const char destServer[] = "api.openweathermap.org";
+const String httpRequest = "GET /data/2.5/weather?id=4273837&APPID={APIKEY} HTTP/1.1\n"
+                           "Host: api.openweathermap.org\n"
+                           "Connection: Keep-Alive\n\n";
+// Weather variables
+static float temp = 0;
+static int temp_min = 0;
+static int temp_max = 0;
+static String main = "";
+
+/////////////////
+// Water Feeder /
+/////////////////
+
+int solenoidPin = 4;    // Valve pin
+static int halfHrCount = 0; // Water timing
+
+void setup() {
+  // Internet Connection Setup
+  int status;
+
+  Serial.begin(9600); // Start serial
+
+  status = esp8266.begin(); // Initialize WiFi Shield
+  if (status <= 0) {
+    Serial.println(F("Unable to communicate with shield. Looping"));
+    while(1) ;
+  }
+
+  esp8266.setMode(ESP8266_MODE_STA); // Set WiFi mode to station
+  if (esp8266.status() <= 0) { // If we're not already connected
+    if (esp8266.connect(mySSID, myPSK) < 0) { // Connect to network
+      Serial.println(F("Error connecting"));
+      while (1) ;
+    }
+  }
+
+  // Get our assigned IP address and print it:
+  Serial.print(F("My IP address is: "));
+  Serial.println(esp8266.localIP());
+
+  // Sets the pin as an output for water feeder
+  pinMode(solenoidPin, OUTPUT);
+  water();
+
+}
+void loop() {
+
+  // Mark start time
+  unsigned long startMillis = millis();
+
+  // Get weather data
+  updateWeather();
+
+  // Then clear the serial buffer:
+  while (Serial.available())
+    Serial.read();
+
+  // ESP8266 connection must be made before LCD initialization
+  LiquidCrystal lcd(6, 7, 9, 10, 11, 12); // LCD object
+
+  // Print updated weather data
+  lcd.begin(16, 2);
+  lcd.clear();
+  lcd.print(main);
+  lcd.print(" - ");
+  lcd.print(temp);
+  lcd.print(" ");
+  lcd.print((char)223); // degree symbol
+  lcd.print("F");
+  lcd.setCursor(0,1);
+  lcd.print("Min: ");
+  lcd.print(temp_min);
+  lcd.print(" Max: ");
+  lcd.print(temp_max);
+
+  // Water feeder should run every 3 days
+  if (halfHrCount == 144) {
+    water();    // Switch Solenoid ON
+    halfHrCount = 0; // Reset hour count
+  } else {
+    digitalWrite(solenoidPin, LOW); // Switch Solenoid OFF
+    halfHrCount += 1; // increment half hours
+  }
+  while (millis() - startMillis < 1800000); // Wait thirty minutes
+}
+
+void updateWeather() {
+
+  // Create a client, and initiate a connection
+  ESP8266Client client;
+
+  // Connect to openweathermap
+  while (client.connect(destServer, 80) <= 0) {
+    Serial.println(F("Failed to connect to server."));
+    return;
+  }
+  Serial.println("Connected.");
+
+  client.print(httpRequest); // Make GET request
+
+  // Parse response for weather conditions
+  while (client.available()){
+      if (client.find("main"))
+        main = client.readStringUntil(',');
+      if (client.find("temp"))
+        temp = convertFloatToF(client.parseFloat());
+      if (client.find("temp_min"))
+        temp_min = convertIntToF(client.parseInt());
+      if (client.find("temp_max"))
+        temp_max = convertIntToF(client.parseInt());
+  }
+
+  // Clean up input
+  main.replace("\"", "");
+  main.replace(":", "");
+
+  // Print weather to serial
+  Serial.println(main);
+  Serial.println(temp);
+  Serial.println(temp_min);
+  Serial.println(temp_max);
+
+  // Stop connection
+  if (client.connected())
+    client.stop(); // stop() closes a TCP connection.
+}
+
+
+//////////////////////
+// Helper Functions //
+//////////////////////
+
+float convertFloatToF(float x) {
+  return (x-273.15) * 9 / 5 + 32;
+}
+
+int convertIntToF(int x) {
+  return (x-273.15) * 9 / 5 + 32;
+}
+
+void water() {
+  // Turn valve on and off so as to not
+  // overflow the plant's pot.
+  digitalWrite(solenoidPin, HIGH);
+  delay(250);
+  digitalWrite(solenoidPin, LOW);
+  delay(1000);
+  digitalWrite(solenoidPin, HIGH);
+  delay(250);
+  digitalWrite(solenoidPin, LOW);
+  delay(1000);
+  digitalWrite(solenoidPin, HIGH);
+  delay(250);
+  digitalWrite(solenoidPin, LOW);
+  delay(1000);
+  digitalWrite(solenoidPin, HIGH);
+  delay(250);
+  digitalWrite(solenoidPin, LOW);
+}
+
+
+                        </pre></code></div>
+                    </div>
+
+    	       </div>
+			</div>
+            <div id="sideBar" style="position: fixed;">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="../index.html#projects">Projects</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+             </div>
+        </div>
+    </body>
+</html>
+<style>
+    p {
+        text-indent: 40px;
+    }
+    img {
+        max-height: 500px;
+        display:block;
+        margin: auto;
+    }
+    .imgContainer {
+    }
