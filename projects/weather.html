@@ -109,8 +109,10 @@
 
                         <p>From here, I  needed to connect the LCD next to the solenoid valve on the breadboard, and then just load the data onto the LCD. Before, I always just followed wiring diagrams to make use of my Arduino components, and I never really understood how they worked. Obviously, this wouldn't work for this project, so I had to do some reading/watching about how breadboards worked, and how current flowed through them. I found <a href=”https://www.youtube.com/watch?v=Iy7DY2UbHvM”>this video</a> from eTech Tom on YouTube to be very helpful with this. I learned that as long as I kept the pins in the same row as each other, I could just move them up to make room for the LCD. This made it very easy to combine the two different wiring diagrams (solenoid from <a href=”https://www.bc-robotics.com/tutorials/controlling-a-solenoid-valve-with-arduino/”>BC Robotics</a>, and LCD from <a href=”https://www.arduino.cc/en/Tutorial/HelloWorld”>Arduino</a>), which you can see below. </p>
 
-                        <div style="display:flex;margin: 50px 0;"><img src="https://www.bc-robotics.com/wp-content/uploads/2015/07/sketch1.jpg" style="float:left;"/>
-                        <img src="https://www.arduino.cc/en/uploads/Tutorial/LCD_Base_bb_Fritz.png" style="float:right; width:50%;"/></div>
+                        <div style="display:flex;margin: 50px 0;">
+                          <img class="s6" src="https://www.bc-robotics.com/wp-content/uploads/2015/07/sketch1.jpg" />
+                          <img class="s6" src="https://www.arduino.cc/en/uploads/Tutorial/LCD_Base_bb_Fritz.png" />
+                        </div>
 
                         <p>The only overlap I had with these schematics was with digital pin 4. I did some reading and found out that most of the digital pins can be used for the same thing, as long as they didn't need special requirements (like PWM output). I assumed that this was meant all pins 2-13, so I hooked up the LCD on pins 7, 8, 9, and 10 instead of the 2, 3, 4, and 5 in the diagram. This was apparently NOT the way to go about it. It turns out that pin 8 is one of the analog pins, and the WiFi shield needs it for something, so when the LCD was initialized, it would disconnect it from the WiFi. This had me banging my head against the wall, because I was able to get the weather data any time I restarted it, but it would never change after that.</p>
 
