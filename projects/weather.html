@@ -114,7 +114,7 @@
 
                         <p>The only overlap I had with these schematics was with digital pin 4. I did some reading and found out that most of the digital pins can be used for the same thing, as long as they didn't need special requirements (like PWM output). I assumed that this was meant all pins 2-13, so I hooked up the LCD on pins 7, 8, 9, and 10 instead of the 2, 3, 4, and 5 in the diagram. This was apparently NOT the way to go about it. It turns out that pin 8 is one of the analog pins, and the WiFi shield needs it for something, so when the LCD was initialized, it would disconnect it from the WiFi. This had me banging my head against the wall, because I was able to get the weather data any time I restarted it, but it would never change after that.</p>
 
-                        <p>But upon figuring that out, all I had to do was convert the weather values to Fahrenheit and print them on the LCD, and there we had it. The last thing I added was a timer to have it refresh every 30 minutes, and just like that I had saved myself a couple of extra minutes in my bed every morning!</p>
+                        <p>But upon figuring that out, all I had to do was move the pin on 8 to a different one. Then I just converted the weather values to Fahrenheit and printed them on the LCD, and there we had it! The last thing I added was a timer to have it refresh every 30 minutes, and just like that I had saved myself a couple of extra minutes in my bed every morning!</p>
 
                         <p>You can see my Arduino code below. Thanks for reading!</p>
                         <div class="codeContainer"><code><pre class="prettyprint">
