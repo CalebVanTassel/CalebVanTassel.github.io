@@ -108,12 +108,10 @@
                         </pre></code></div>
 
                         <p>From here, I  needed to connect the LCD next to the solenoid valve on the breadboard, and then just load the data onto the LCD. Before, I always just followed wiring diagrams to make use of my Arduino components, and I never really understood how they worked. Obviously, this wouldn't work for this project, so I had to do some reading/watching about how breadboards worked, and how current flowed through them. I found <a href=”https://www.youtube.com/watch?v=Iy7DY2UbHvM”>this video</a> from eTech Tom on YouTube to be very helpful with this. I learned that as long as I kept the pins in the same row as each other, I could just move them up to make room for the LCD. This made it very easy to combine the two different wiring diagrams (solenoid from <a href=”https://www.bc-robotics.com/tutorials/controlling-a-solenoid-valve-with-arduino/”>BC Robotics</a>, and LCD from <a href=”https://www.arduino.cc/en/Tutorial/HelloWorld”>Arduino</a>), which you can see below. </p>
-
-                        <div style="display:flex;margin: 50px 0;">
-                          <img class="s6" style="max-width:100%; max-height:100%;"src="https://www.bc-robotics.com/wp-content/uploads/2015/07/sketch1.jpg" />
-                          -<img class="s6" style="max-width:100%; max-height:100%;" src="https://www.arduino.cc/en/uploads/Tutorial/LCD_Base_bb_Fritz.png" />
+                        <div style="display:inline-block;">
+                            <img class="s6" src="https://www.bc-robotics.com/wp-content/uploads/2015/07/sketch1.jpg" />
+                            <img class="s6" src="https://www.arduino.cc/en/uploads/Tutorial/LCD_Base_bb_Fritz.png" />
                         </div>
-
                         <p>The only overlap I had with these schematics was with digital pin 4. I did some reading and found out that most of the digital pins can be used for the same thing, as long as they didn't need special requirements (like PWM output). I assumed that this was meant all pins 2-13, so I hooked up the LCD on pins 7, 8, 9, and 10 instead of the 2, 3, 4, and 5 in the diagram. This was apparently NOT the way to go about it. It turns out that pin 8 is one of the analog pins, and the WiFi shield needs it for something, so when the LCD was initialized, it would disconnect it from the WiFi. This had me banging my head against the wall, because I was able to get the weather data any time I restarted it, but it would never change after that.</p>
 
                         <p>But upon figuring that out, all I had to do was move the pin on 8 to a different one. Then I just converted the weather values to Fahrenheit and printed them on the LCD, and there we had it! The last thing I added was a timer to have it refresh every 30 minutes, and just like that I had saved myself a couple of extra minutes in my bed every morning!</p>
@@ -154,114 +152,118 @@ int solenoidPin = 4;    // Valve pin
 static int halfHrCount = 0; // Water timing
 
 void setup() {
-  // Internet Connection Setup
-  int status;
+ // Internet Connection Setup
+ int status;
 
-  Serial.begin(9600); // Start serial
+ Serial.begin(9600); // Start serial
 
-  status = esp8266.begin(); // Initialize WiFi Shield
-  if (status <= 0) {
-    Serial.println(F("Unable to communicate with shield. Looping"));
-    while(1) ;
-  }
+ status = esp8266.begin();
+ if (status <= 0) {
+   Serial.println(F("Unable to communicate with shield. Looping"));
+   while(1) ;
+ }
 
-  esp8266.setMode(ESP8266_MODE_STA); // Set WiFi mode to station
-  if (esp8266.status() <= 0) { // If we're not already connected
-    if (esp8266.connect(mySSID, myPSK) < 0) { // Connect to network
-      Serial.println(F("Error connecting"));
-      while (1) ;
-    }
-  }
+ esp8266.setMode(ESP8266_MODE_STA); // Set WiFi mode to station
 
-  // Get our assigned IP address and print it:
-  Serial.print(F("My IP address is: "));
-  Serial.println(esp8266.localIP());
 
-  // Sets the pin as an output for water feeder
-  pinMode(solenoidPin, OUTPUT);
-  water();
+ // Sets the pin as an output for water feeder
+ pinMode(solenoidPin, OUTPUT);
+ water();
 
 }
 void loop() {
 
-  // Mark start time
-  unsigned long startMillis = millis();
+ // Mark start time
+ unsigned long startMillis = millis();
 
-  // Get weather data
-  updateWeather();
+ // Get weather data
+ updateWeather();
+ Serial.print("half hour count");
+ Serial.println(halfHrCount);
 
-  // Then clear the serial buffer:
-  while (Serial.available())
-    Serial.read();
+ // Then clear the serial buffer:
+ while (Serial.available())
+   Serial.read();
 
-  // ESP8266 connection must be made before LCD initialization
-  LiquidCrystal lcd(6, 7, 9, 10, 11, 12); // LCD object
+ // ESP8266 connection must be made before LCD initialization
+ LiquidCrystal lcd(6, 7, 9, 10, 11, 12); // LCD object
 
-  // Print updated weather data
-  lcd.begin(16, 2);
-  lcd.clear();
-  lcd.print(main);
-  lcd.print(" - ");
-  lcd.print(temp);
-  lcd.print(" ");
-  lcd.print((char)223); // degree symbol
-  lcd.print("F");
-  lcd.setCursor(0,1);
-  lcd.print("Min: ");
-  lcd.print(temp_min);
-  lcd.print(" Max: ");
-  lcd.print(temp_max);
+ // Print updated weather data
+ lcd.begin(16, 2);
+ lcd.clear();
+ lcd.print(main);
+ lcd.print(" : ");
+ lcd.print(temp);
+ lcd.print(" ");
+ lcd.print((char)223); // degree symbol
+ lcd.print("F");
+ lcd.setCursor(0,1);
+ lcd.print("Min: ");
+ lcd.print(temp_min);
+ lcd.print(" Max: ");
+ lcd.print(temp_max);
 
-  // Water feeder should run every 3 days
-  if (halfHrCount == 144) {
-    water();    // Switch Solenoid ON
-    halfHrCount = 0; // Reset hour count
-  } else {
-    digitalWrite(solenoidPin, LOW); // Switch Solenoid OFF
-    halfHrCount += 1; // increment half hours
-  }
-  while (millis() - startMillis < 1800000); // Wait thirty minutes
+ // Water feeder should run every 3 days
+ if (halfHrCount == 144) {
+   water();    // Switch Solenoid ON
+   halfHrCount = 0; // Reset hour count
+ } else {
+   digitalWrite(solenoidPin, LOW); // Switch Solenoid OFF
+   halfHrCount += 1; // increment half hours
+ }
+ while (millis() - startMillis < 1800000); // Wait thirty minutes
 }
 
 void updateWeather() {
 
-  // Create a client, and initiate a connection
-  ESP8266Client client;
+   if (esp8266.status() <= 0) { // If we're not already connected
+   if (esp8266.connect(mySSID, myPSK) < 0) { // Connect to network
+     Serial.println(F("Error connecting"));
+     while (1) ;
+   }
+ }
 
-  // Connect to openweathermap
-  while (client.connect(destServer, 80) <= 0) {
-    Serial.println(F("Failed to connect to server."));
-    return;
-  }
-  Serial.println("Connected.");
+ // Create a client, and initiate a connection
+ ESP8266Client client;
 
-  client.print(httpRequest); // Make GET request
+ // Connect to openweathermap
+ int error = 0;
+ do {
+   error = client.connect(destServer, 80);
+ }
+ while (error <= 0);
 
-  // Parse response for weather conditions
-  while (client.available()){
-      if (client.find("main"))
-        main = client.readStringUntil(',');
-      if (client.find("temp"))
-        temp = convertFloatToF(client.parseFloat());
-      if (client.find("temp_min"))
-        temp_min = convertIntToF(client.parseInt());
-      if (client.find("temp_max"))
-        temp_max = convertIntToF(client.parseInt());
-  }
+ Serial.println("Connected.");
 
-  // Clean up input
-  main.replace("\"", "");
-  main.replace(":", "");
+ client.print(httpRequest); // Make GET request
 
-  // Print weather to serial
-  Serial.println(main);
-  Serial.println(temp);
-  Serial.println(temp_min);
-  Serial.println(temp_max);
+ // Parse response for weather conditions
+ while (client.available()){
+     if (client.find("main"))
+       main = client.readStringUntil(',');
+     if (client.find("temp"))
+       temp = convertFloatToF(client.parseFloat());
+     if (client.find("temp_min"))
+       temp_min = convertIntToF(client.parseInt());
+     if (client.find("temp_max"))
+       temp_max = convertIntToF(client.parseInt());
+ }
 
-  // Stop connection
-  if (client.connected())
-    client.stop(); // stop() closes a TCP connection.
+ // Clean up input
+ main.replace("\"", "");
+ main.replace(":", "");
+
+ // Print weather to serial
+ Serial.println(main);
+ Serial.println(temp);
+ Serial.println(temp_min);
+ Serial.println(temp_max);
+
+ // Stop connection
+ if (client.connected())
+   client.stop(); // stop() closes a TCP connection.
+   esp8266.disconnect();
+   esp8266.flush();
 }
 
 
@@ -270,37 +272,27 @@ void updateWeather() {
 //////////////////////
 
 float convertFloatToF(float x) {
-  return (x-273.15) * 9 / 5 + 32;
+ return (x-273.15) * 9 / 5 + 32;
 }
 
 int convertIntToF(int x) {
-  return (x-273.15) * 9 / 5 + 32;
+ return (x-273.15) * 9 / 5 + 32;
 }
 
 void water() {
-  // Turn valve on and off so as to not
-  // overflow the plant's pot.
-  digitalWrite(solenoidPin, HIGH);
-  delay(250);
-  digitalWrite(solenoidPin, LOW);
-  delay(1000);
-  digitalWrite(solenoidPin, HIGH);
-  delay(250);
-  digitalWrite(solenoidPin, LOW);
-  delay(1000);
-  digitalWrite(solenoidPin, HIGH);
-  delay(250);
-  digitalWrite(solenoidPin, LOW);
-  delay(1000);
-  digitalWrite(solenoidPin, HIGH);
-  delay(250);
-  digitalWrite(solenoidPin, LOW);
+ // Turn valve on and off so as to not
+ // overflow the plant's pot.
+ for (int i = 0; i < 4; i++){
+     digitalWrite(solenoidPin, HIGH);
+     delay(250);
+     digitalWrite(solenoidPin, LOW);
+     delay(1000);
+ }
 }
-
-
                         </pre></code></div>
-                    </div>
+                        <p><strong>EDIT:</strong> When I posted this back in March I was feeling pretty hot about getting it to work. But really, it wasn't until today, April 23rd, that I actually completed it. Throughout these past couple months, I've been having trouble getting the display to update consistently. I realize now that the Arduino's memory (specifically the ESP8266) is pretty limited, and it was getting filled with my requests. I troubleshooted in many different ways, and it turns out all I needed to add was one line to flush the memory every so often. I thought this little insight might help someone stumbling upon this issue. </p>
 
+                    </div>
     	       </div>
 			</div>
             <div id="sideBar" style="position: fixed;">
