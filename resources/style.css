@@ -173,6 +173,7 @@ a:active {
   overflow-y:scroll;
   width: 75%;
   margin:auto;
+  background-color:#eee;
 }
 
 /* Menu Button */
@@ -204,6 +205,10 @@ a:active {
     height:3px;
 }
 
+/* Pretty Print fixes */
+pre.prettyprint {
+    border: none;
+}
 /* Sidebar */
 #sideBar {
     position: absolute;
