@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../resources/hamburgers.css" rel="stylesheet">
+        <link href="../resources/style.css" rel="stylesheet">
+        <script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
+        <script src="../resources/script.js"></script>
+    </head>
+    <body>
+        <div id="container">
+            <div id="top">
+                <div id="navigation" style="position:fixed;">
+                    <button id="menu" class="hamburger hamburger--minus" type="button">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
+                </div>
+                <br/>
+                <div id="pageHeading">
+                    <h2 style="margin: 0;">Projects</h2>
+                </div>
+            </div>
+            <div id="theRest">
+                <div class="row">
+                    <div class="block blockTextOnly">
+						<div id="postHeading">
+                        	<h3 style="float:left;">Spellcrawler: A Webcrawling Spellchecker</h3>
+                        	<span style="float:right;">2/7/2020</span>
+                        </div>
+                        <div class="imgContainer">
+                           <img src="../img/spider.jpg"/>
+                        </div>
+                        
+                        <p>These days, spell checkers have gotten pretty good. It’s not often that I’m typing an essay and I get an unwarranted red squiggle. Evidently it is an extremely useful feature, as I’ve already used it multiple times since starting this post. It’s on plenty of websites, and even is sometimes integrated into browsers. Yet, sometimes I still stumble upon misspellings in articles and blog posts. I understand we’re all human, but if you’re not spell checking your article before posting it, what are you even doing? I thought I could help these people by developing a web crawler that scrapes the top web pages of the day for misspelled words and emails them the misspellings with some suggestions.</p>
+
+                        <p>That was the idea, anyway. In the end, it didn’t work quite as well as I hoped it would, but it was still a good learning experience. This project went through multiple iterations as I faced different challenges in picking out which words were actually spelled wrong, and which were names or places or acronyms. Unfortunately, I eventually hit a wall, as this turned out to be quite the task to automate, and I didn’t trust my program to not just spam the wrong email or with bad suggestions. Regardless, this was how it went down:</p>
+
+                        <p>I started the project thinking I’d simply be able to scrape a page for all the text between html tags (so as to avoid any id’s or other attributes) using the python library BeautifulSoup, and use the pyspellchecker library to see if any of the words were misspelled. As you might have guessed, this did not quite do the job. After pulling all the text between tags, I quickly realized that the spell checker did not consider names as words, which makes sense in retrospect. Of course it wouldn’t be that easy!</p>
+
+                        <p>So I thought again, why doesn’t Google consider ‘Zendaya’ a misspelling? Is there any way I can leverage their infinite wisdom? I was already scraping web pages, so what if I used the library to spell check what I could, then whatever’s left over, send that through a google search and grab the suggestion? That might work! Or so I thought…</p>
+
+                        <p>A couple of hours later, I busted out the code to do this, and had it working pretty well! Things were going good until I hit the third of the top 10, where it broke. Those who have hit Google’s servers a few dozen times in a couple of minutes know what happened. They threw a captcha at my program to verify that I wasn’t doing exactly what they didn’t want me to do. How rude. I wasn’t quite done though. </p>
+
+                        <p>I suspected that Google might know how I was hitting their servers as I was just making a GET request in my code, so I looked into other ways of getting the data off their pages. Turns out there’s a testing framework called Selenium, which can use your browser and make an automated window that runs through web pages. It was surprisingly easy to get going, and seemed to avoid the captcha problem I was running into earlier, so I called it good and started building a database and website to store the results. </p>
+
+                        <p>Thanks to flask, I was able to get the front end up and going pretty quickly, and things were looking good! I cleared the database and ran my program once more on all of the top pages to get fresh data, and… I got the captcha problem again. This was disappointing to say the least. But at this point, I was pretty burnt out, and it worked well for the pages it was able to do (~95% correct suggestions), so I decided to stop there. Though, in the future I might try to close that gap some more by putting the words in a Google Doc, since I would expect the same suggestions and that would avoid the captcha problem, but for now I’m on to bigger or smaller and potentially better or worse things!</p>
+
+						<p>If you're interested. you can check out my code for it on my Github <a href="https://github.com/cvantassel/SpellCrawler">here</a>.</p>
+
+                        <p>Thanks for reading!</p>
+
+
+                    </div>
+
+    	       </div>
+			</div>
+            <div id="sideBar" style="position: fixed;">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="../index.html#projects">Projects</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+             </div>
+        </div>
+    </body>
+</html>
+<style>
+    p {
+        text-indent: 40px;
+    }
+    img {
+        max-height: 500px;
+        display:block;
+        margin: auto;
+    }
+    .imgContainer {
+    }
