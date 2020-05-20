@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../resources/hamburgers.css" rel="stylesheet">
+        <link href="../resources/style.css" rel="stylesheet">
+        <script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
+        <script src="../resources/script.js"></script>
+    </head>
+    <body>
+        <div id="container">
+            <div id="top">
+                <div id="navigation" style="position:fixed;">
+                    <button id="menu" class="hamburger hamburger--minus" type="button">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
+                </div>
+                <br/>
+                <div id="pageHeading">
+                    <h2 style="margin: 0;">Projects</h2>
+                </div>
+            </div>
+            <div id="theRest">
+                <div class="row">
+                    <div class="block blockTextOnly">
+						<div id="postHeading">
+                        	<h3 style="float:left;">Track: Ionic application for keeping track of things</h3>
+                        	<span style="float:right;">5/20/2020</span>
+                        </div>
+                        
+                        <p>If you’re like me and often buy things you don’t really use, you know the need to declutter your place every few months. I’ve gotten pretty good about doing this since moving out of my parents, but there’s still a few things that it’s hard to determine whether I really need or not like the clothes in my closet or my board games. This was the inspiration for my honors project this semester. I created a little web application I call Track that can keep track of how often I use my things and provide statistics on my usage of them. </p>
+
+                        <p>In order to achieve this, I essentially needed a way to create a digital ‘identity’ for each of the items that I wanted to track. I figured this needed to be done in a way that was inexpensive, in case I wanted to do this on a lot of items. I liked the idea of using NFC tags, but I went with QR codes instead as they were much cheaper and I could make a bunch with a printer.</p>
+
+                        <p>So from here the plan was as follows:</p>
+                        
+                        <ul>
+                            <li>Create a PostgreSQL database to store our items and groups of items (I called them ‘projects’)</li>
+                            <li>Create a web application to display and create projects and items</li>
+                            <li>Create an API in python to make modifications the database</li>
+                        </ul>
+
+                        <p>Then the fun part:</p>
+                        <ul>
+                            <li>Upon item creation, generate a unique QR code that is essentially a GET endpoint to the API, which increments the count of uses on that item and updates the ‘last use date’</li>
+                            <li>Print the QR code so I can stick it onto my hangers or board games and scan it when I use them</li>
+                        </ul>
+
+                        <p>I didn’t run into many hiccups along the way, which is probably a first. It works nicely, and I have it hosted on a rPi server in my apartment. I look forward to seeing how much I actually use it. Here’s a few screenshots of the UI: </p>
+
+                        <div class="imgContainer">
+                           <img src="../img/track/track.png"/>
+                        </div>
+
+                        <p>I did this project for my Algorithms class, so I wanted to incorporate some complexity analysis on some of my more process heavy functions. As you can see on the home page, I have a section where I display your top five most used items. To accomplish this, I implemented heap sort in Typescript:</p>
+
+                        <div class="imgContainer">
+                            <img src="../img/track/heapSort.png"/>
+                         </div>
+
+                         <p>In the future, I’d like to extend it to be able to handle images, so I know which article of clothing goes on which hangar, but for now it’s in a pretty good place. Also, because I built it with a few projects in mind, it could probably be used for a bunch of other things. I thought it would be cool to keep track of items in your refrigerator, but the QR system would be tedious. Perhaps I could use the barcodes or utilize machine vision. Anyways, thanks for reading! </p>
+
+						<p> <a href="https://github.com/cvantassel/Track">You can see the code on my github page here.</a></p>
+
+
+                    </div>
+
+    	       </div>
+			</div>
+            <div id="sideBar" style="position: fixed;">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="../index.html#projects">Projects</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+             </div>
+        </div>
+    </body>
+</html>
+<style>
+    p {
+        text-indent: 40px;
+    }
+    img {
+        max-height: 500px;
+        display:block;
+        margin: auto;
+    }
+    .imgContainer {
+    }
